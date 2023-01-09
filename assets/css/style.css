@@ -74,6 +74,9 @@ html, body {
 #wrap .box .stage .card.active {
   background: rgba(255, 196, 69, 0.5);
 }
+#wrap .box .stage .card.wrong {
+  background: rgba(255, 69, 69, 0.5);
+}
 #wrap .box .stage .card span {
   display: block;
   position: absolute;

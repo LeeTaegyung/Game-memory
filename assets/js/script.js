@@ -5,6 +5,7 @@
     const startBtn = document.querySelector('.game_start');
     const life = document.querySelector('.life');
     const heart = life.querySelectorAll('span');
+    const turn = document.querySelector('.turn');
     const state = {
         myTurn: false,
         isStart: false,
@@ -26,6 +27,9 @@
 
     function startCount() {
         return new Promise((resolve) => {
+            // 처음 카운트 5 표시
+            createCount(countNum);
+
             let countControl = setInterval(function(){
                 countNum--;
 
@@ -44,7 +48,6 @@
 
     function gameStart() {
         return new Promise((resolve) => {
-
             followArr = [];
 
             // 랜덤 숫자 뽑기
@@ -56,6 +59,16 @@
             let i = 0;
             let followCardAni = setInterval(function(){
                 const followIdx = followArr[i];
+
+                // 텍스트 표시가 잘 안되는중. 계산을 다시 해야할듯.
+                if(i === 0) {
+                    turnTxt = '컴퓨터 차례임';
+                } else if(i !== followArr.length - 1) {
+                    turnTxt = `남은 갯수 : ${followArr.length - (i + 1)}`;
+                }
+                
+                turn.innerHTML = turnTxt;
+
                 cardList[followIdx].classList.add('active');
                 
                 setTimeout(function(){
@@ -64,9 +77,13 @@
 
                 i++;
                 
-                if(i == followArr.length) {
+                if(i === followArr.length) {
+                    turn.innerHTML = `님 차례임`;
+
                     clearInterval(followCardAni);
-                    resolve();
+                    setTimeout(function(){
+                        resolve();
+                    }, 500);
                 }
 
             }, 500);
@@ -75,13 +92,15 @@
         })
     }
 
+    function gameEnd() {
+        turn.innerHTML = `게임 끝났음`;
+        state.isStart = false;
+    }
+
 
     startBtn.addEventListener('click', function(){
         if(state.isStart) return;
         state.isStart = true;
-
-        // 처음 카운트 5 표시
-        createCount(countNum);
 
         // 나머지 카운트 끝나면, 게임 시작
         startCount().then(gameStart);
@@ -111,10 +130,14 @@
         } else { // 값이 틀리면
             state.myTurn = false;
             heart[die.length].classList.add('die');
+            cardList.forEach(ele => ele.classList.add('wrong'));
+
+            setTimeout(function(){
+                cardList.forEach(ele => ele.classList.remove('wrong'));
+            }, 500)
 
             if(die.length === heart.length - 1) { // 하트 다 소진
-                // gameEnd();
-                state.isStart = false;
+                gameEnd();
             } else {
                 // 지금 레벨의 처음부터
                 setTimeout(function(){
@@ -122,19 +145,21 @@
                 }, 500)
                 // 여기에 틀렸을때 애니메이션 추가?
             }
-
+            return;
         }
 
         // 비교할 값이 더이상 없으면,
         if(followArr[0] === undefined) {
+            cardList.forEach(ele => ele.classList.add('active'));
             state.myTurn = false;
             level++;
             setTimeout(function(){
+                cardList.forEach(ele => ele.classList.remove('active'));
                 gameStart();
             }, 500)
+        } else {
+            target.appendChild(span);
         }
-
-        target.appendChild(span);
 
         setTimeout(function(){
             span.remove();
