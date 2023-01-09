@@ -97,6 +97,8 @@
     function gameEnd() {
         turn.innerHTML = `게임 끝났음`;
         state.isStart = false;
+        countNum = 5;
+        level = 1;
     }
 
 
