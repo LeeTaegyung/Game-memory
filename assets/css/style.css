@@ -41,11 +41,13 @@ html, body {
   text-align: center;
 }
 #wrap .box .util .life span {
+  display: inline-block;
   font-size: 14px;
   color: #ff2f2f;
 }
 #wrap .box .util .life span.die {
   opacity: 0.5;
+  animation: dieAni 0.5s ease forwards;
 }
 #wrap .box .stage {
   display: flex;
@@ -152,6 +154,23 @@ html, body {
   100% {
     transform: translate(-100%, -50%) skewX(-10deg);
     opacity: 0;
+  }
+}
+@keyframes dieAni {
+  0% {
+    transform: translateX(-1px);
+  }
+  25% {
+    transform: translateX(1px);
+  }
+  50% {
+    transform: translateX(-1px);
+  }
+  75% {
+    transform: translateX(1px);
+  }
+  100% {
+    transform: translateX(0px);
   }
 }
 
