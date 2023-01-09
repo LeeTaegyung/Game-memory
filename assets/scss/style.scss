@@ -83,6 +83,16 @@
             }
         }
 
+        .level {
+            margin-top: 10px;
+            font-size: 18px;
+
+            .val {
+                font-size: 22px;
+                font-weight: 700;
+            }
+        }
+
         .game_start {
             display: block;
             padding: 4px 10px;

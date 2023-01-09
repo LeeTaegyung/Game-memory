@@ -6,6 +6,7 @@
     const life = document.querySelector('.life');
     const heart = life.querySelectorAll('span');
     const turn = document.querySelector('.turn');
+    const levelValue = document.querySelector('.level .val');
     const state = {
         myTurn: false,
         isStart: false,
@@ -48,6 +49,7 @@
 
     function gameStart() {
         return new Promise((resolve) => {
+            levelValue.innerHTML = level;
             followArr = [];
 
             // 랜덤 숫자 뽑기

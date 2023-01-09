@@ -90,6 +90,14 @@ html, body {
   border-radius: 50%;
   animation: cardAni 0.4s ease forwards;
 }
+#wrap .box .level {
+  margin-top: 10px;
+  font-size: 18px;
+}
+#wrap .box .level .val {
+  font-size: 22px;
+  font-weight: 700;
+}
 #wrap .box .game_start {
   display: block;
   padding: 4px 10px;
