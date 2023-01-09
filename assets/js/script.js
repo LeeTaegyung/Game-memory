@@ -15,7 +15,7 @@
     let countNum = 5;
     let level = 1;
 
-    function createCount(num) {
+    function createCount() {
         const countEl = document.createElement('span');
         countEl.classList.add('count');
         countEl.innerHTML = countNum;
@@ -29,7 +29,7 @@
     function startCount() {
         return new Promise((resolve) => {
             // 처음 카운트 5 표시
-            createCount(countNum);
+            createCount();
 
             let countControl = setInterval(function(){
                 countNum--;
@@ -41,7 +41,7 @@
                     }, 1000);
                 }
 
-                createCount(countNum);
+                createCount();
 
             }, 1000)
         })
